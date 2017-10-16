@@ -46,7 +46,7 @@ foreach ($days as $date => $day)
 	$out .= "UID:Permanent-Weather-".date('Ymd', strtotime($date))."-$version\r\n";
 	$out .= "CLASS:PUBLIC\r\n";
 	$out .= "CREATED:$last\r\n";
-	$out .= "LOCATION:".str_replace('/', ', ', $location)."\r\n"; //@https://www.ietf.org/rfc/rfc2445.txt
+	//$out .= "LOCATION:".str_replace('/', ', ', $location)."\r\n"; //@https://www.ietf.org/rfc/rfc2445.txt
 	$out .= "LAST-MODIFIED:$last\r\n";
 	$out .= "SEQUENCE:0\r\n";
 	$out .= "STATUS:CONFIRMED\r\n";
@@ -59,11 +59,10 @@ foreach ($days as $date => $day)
 	foreach ($day as $hour => $forecast)
 	{
 		$out .= $hour.'\n';
-		$out .= 'Temperature: '.$forecast->getTemperature().' °C\n';
-		$out .= 'Precipitation: '.$forecast->getPrecipitation().' mm\n';
-		$out .= 'Conditions: '.$forecast->getSymbol().'\n';
-		$out .= 'Wind: '.$forecast->getWindSpeed().' m/s from '.$forecast->getWindDirection().'\n';
-		$out .= 'Pressure: '.$forecast->getPressure().' hPa\n';
+		$out .= 'Temp: '.$forecast->getTemperature().'°C\n';
+		$out .= 'Cond: '.$forecast->getSymbol().'\n';
+		$out .= 'Prec: '.$forecast->getPrecipitation().'mm\n';
+		$out .= 'Wind: '.$forecast->getWindSpeed().'m/s '.$forecast->getWindDirection().'\n';
 		$out .= '\n';
 		
 		if ($temp_max < $forecast->getTemperature())
@@ -112,7 +111,7 @@ foreach ($days as $date => $day)
 		}
 	}
 			
-	$out .= "SUMMARY:$temp_max|$temp_min{$precipitation_icon}{$precipitation}㎜{$wind_max}⇶\r\n";	
+	$out .= "SUMMARY:${temp_max}|${temp_min}° {$precipitation}mm {$wind_max}m/s\r\n";
 
 	
 	$out .= "TRANSP:OPAQUE\r\n";
