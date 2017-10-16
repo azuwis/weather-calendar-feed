@@ -62,7 +62,7 @@ foreach ($days as $date => $day)
 		$out .= 'Temp: '.$forecast->getTemperature().'°C\n';
 		$out .= 'Cond: '.$forecast->getSymbol().'\n';
 		$out .= 'Prec: '.$forecast->getPrecipitation().'mm\n';
-		$out .= 'Wind: '.$forecast->getWindSpeed().'m/s '.$forecast->getWindDirection().'\n';
+		$out .= 'Wind: '.round($forecast->getWindSpeed()*3.6).'km '.$forecast->getWindDirection().'\n';
 		$out .= '\n';
 		
 		if ($temp_max < $forecast->getTemperature())
@@ -83,6 +83,7 @@ foreach ($days as $date => $day)
 		$precipitation += $forecast->getPrecipitation();
 	}
 	$out .= "\r\n";
+  $wind_max = round($wind_max * 3.6);
 
 	// my phone can fit 20 chars, my GoogleCalendar 19 chars:
 	//	1234567890123456789
@@ -111,7 +112,7 @@ foreach ($days as $date => $day)
 		}
 	}
 			
-	$out .= "SUMMARY:${temp_max}|${temp_min}° {$precipitation}mm {$wind_max}m/s\r\n";
+	$out .= "SUMMARY:${temp_max}|${temp_min}° {$precipitation}mm {$wind_max}km\r\n";
 
 	
 	$out .= "TRANSP:OPAQUE\r\n";
