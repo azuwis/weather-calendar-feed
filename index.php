@@ -112,7 +112,7 @@ foreach ($days as $date => $day)
 		}
 	}
 			
-	$out .= "SUMMARY:${temp_max}|${temp_min}° {$precipitation}mm {$wind_max}km\r\n";
+	$out .= "SUMMARY:${temp_max}|${temp_min}°{$precipitation}|{$wind_max}\r\n";
 
 	
 	$out .= "TRANSP:OPAQUE\r\n";
